@@ -1,4 +1,5 @@
 <section id="solr">
+
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
@@ -10,21 +11,28 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="solr[install]" value="1"
-                                    {% if solr.install %}checked{% endif %} /> Install Solr
+                                <input type="checkbox" name="solr[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="solr-pill"
+                                    {% if solr.install == 1 %}checked{% endif %} value="1" /> Install Solr
                             </label>
 
                             <p class="help-block">
-                                Solr 4.6.0 will be installed. To open your Solr admin page http://[your-host]:8080/solr.
+                                Solr 4.6.1 will be installed. To open your Solr admin page
+                                <code>http://{SERVER_IP_ADDRESS}:8080/solr</code>.
                             </p>
                         </div>
 
                         <div class="col-xs-12">
-                            <label for="solr-cores">Solr index cores</label>
-                            <input id="solr-cores" name="solr[settings][cores]" class="form-control select-tags-user-input" value="dev,stage,prod">
+                            <label for="solr-settings-cores">Solr Index Cores</label>
+                            <select id="solr-settings-cores" name="solr[settings][cores][]"
+                                    multiple class="form-control select-tags-editable">
+                                {% for core in solr.settings.cores %}
+                                    <option selected value="{{ core }}">{{ core }}</option>
+                                {% endfor %}
+                            </select>
 
                             <p class="help-block">
-                                You can create any amount of index cores with any name, one per line.
+                                You can create any amount of index cores with any name, separated by comma.
                             </p>
                         </div>
                     </div>

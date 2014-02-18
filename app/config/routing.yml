@@ -70,6 +70,10 @@ puphpet.extension.elastic-search:
     resource: "@PuphpetExtensionElasticSearchBundle/Resources/config/routing.yml"
     prefix:   /extension/elastic-search
 
+puphpet.extension.solr:
+    resource: "@PuphpetExtensionSolrBundle/Resources/config/routing.yml"
+    prefix:   /extension/solr
+
 puphpet.extension.mailcatcher:
     resource: "@PuphpetExtensionMailCatcherBundle/Resources/config/routing.yml"
     prefix:   /extension/mailcatcher

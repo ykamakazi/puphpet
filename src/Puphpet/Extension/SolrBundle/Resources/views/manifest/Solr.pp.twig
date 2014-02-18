@@ -1,20 +1,19 @@
 ## Begin Solr manifest
 
 if $solr_values == undef {
-    $solr_values = hiera('solr', false)
+  $solr_values = hiera('solr', false)
 }
 
-if $solr_values['install'] != undef and $solr_values['install'] == 1 {
-    if ($solr_values['settings']['cores'] != undef) {
-        $solr_cores = $solr_values['settings']['cores'].split(',')
+if has_key($solr_values, 'install') and $solr_values['install'] == 1 {
+  if (is_array($solr_values['settings']['cores'])) {
+    $solr_cores = $solr_values['settings']['cores']
+  } else {
+    $solr_cores = []
+  }
 
-    } else {
-        $solr_cores = []
-    }
-
-    class { solr:
-        cores => $solr_cores
-    }
+  class { 'solr':
+    cores         => $solr_cores,
+    download_site => 'http://www.motorlogy.com/apache/lucene/solr/',
+    version       => $solr_values['settings']['version']
+  }
 }
-
-## End Solr manifest

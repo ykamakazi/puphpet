@@ -12,8 +12,9 @@
                     <div class="row form-group">
                         <div class="col-xs-12">
                             <label class="checkbox-inline">
-                                <input type="checkbox" name="elastic_search[install]" value="1"
-                                    {% if elastic_search.install == 1 %}checked{% endif %} /> Install Elastic Search
+                                <input type="checkbox" name="elastic_search[install]" class="multiselect-grouped-tab"
+                                       data-tab-target="elastic_search-pill"
+                                    {% if elastic_search.install == 1 %}checked{% endif %} value="1" /> Install Elastic Search
                             </label>
 
                             <p class="help-block">

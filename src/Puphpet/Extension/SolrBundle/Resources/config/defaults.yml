@@ -1,2 +1,6 @@
 settings:
-    cores: [ 'development', 'staging', 'production' ]
+    version: 4.6.1
+    cores:
+        - 'development'
+        - 'staging'
+        - 'production'
