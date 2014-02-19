@@ -2,6 +2,7 @@ install: 0
 
 settings:
     version: 4.6.1
+    jetty_port: 8080
     cores:
         - development
         - staging

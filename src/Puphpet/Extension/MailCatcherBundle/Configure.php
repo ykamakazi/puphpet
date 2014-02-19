@@ -13,6 +13,7 @@ class Configure extends Extension\ExtensionAbstract
     protected $targetFile = 'puphpet/puppet/manifest.pp';
 
     protected $sources = [
+        'iptables'    => ":git => 'https://github.com/puphpet/puppet-iptables.git'",
         'mailcatcher' => ":git => 'https://github.com/puphpet/puppet-mailcatcher.git'",
         'supervisord' => ":git => 'https://github.com/puphpet/puppet-supervisord.git'",
     ];
