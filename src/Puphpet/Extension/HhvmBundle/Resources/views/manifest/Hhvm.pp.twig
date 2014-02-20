@@ -58,4 +58,10 @@ if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['
       Package['hhvm']
     ]
   }
+
+  file { '/usr/bin/php':
+    ensure  => 'link',
+    target  => '/usr/bin/hhvm',
+    require => Package['hhvm']
+  }
 }
