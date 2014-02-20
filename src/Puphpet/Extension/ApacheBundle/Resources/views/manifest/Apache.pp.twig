@@ -62,6 +62,13 @@ class { 'apache':
   conf_template => $apache_conf_template
 }
 
+if $::osfamily == 'redhat' and ! defined(Iptables::Allow['tcp/80']) {
+  iptables::allow { 'tcp/80':
+    port     => '80',
+    protocol => 'tcp'
+  }
+}
+
 if has_key($apache_values, 'mod_pagespeed') and $apache_values['mod_pagespeed'] == 1 {
   class { 'puphpet::apache::modpagespeed': }
 }
