@@ -26,6 +26,16 @@ if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['
     webserver => $hhvm_webserver
   }
 
+  if ! defined(User['hhvm']) {
+    user { 'hhvm':
+      home       => '/home/hhvm',
+      groups     => 'www-data',
+      ensure     => present,
+      managehome => true,
+      require    => Group['www-data']
+    }
+  }
+
   if ! defined(Class['supervisord']) {
     class { 'supervisord':
       install_pip => true,
@@ -37,12 +47,15 @@ if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['
   supervisord::program { 'hhvm':
     command     => $supervisord_hhvm_cmd,
     priority    => '100',
-    user        => 'www-data',
+    user        => 'hhvm',
     autostart   => true,
     autorestart => true,
     environment => {
       'PATH' => '/bin:/sbin:/usr/bin:/usr/sbin'
     },
-    require => Package['hhvm']
+    require     => [
+      User['hhvm'],
+      Package['hhvm']
+    ]
   }
 }
