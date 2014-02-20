@@ -9,11 +9,11 @@ if $apache_values == undef {
 }
 
 if $php_values == undef {
-  $php_values = $yaml_values['php']
+  $php_values = hiera('php', false)
 }
 
 if $hhvm_values == undef {
-  $hhvm_values = $yaml_values['hhvm']
+  $hhvm_values = hiera('hhvm', false)
 }
 
 include puphpet::params
