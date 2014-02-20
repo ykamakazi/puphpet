@@ -25,4 +25,24 @@ if is_hash($hhvm_values) and has_key($hhvm_values, 'install') and $hhvm_values['
     nightly   => $hhvm_values['nightly'],
     webserver => $hhvm_webserver
   }
+
+  if ! defined(Class['supervisord']) {
+    class { 'supervisord':
+      install_pip => true,
+    }
+  }
+
+  $supervisord_hhvm_cmd = "hhvm --mode server -vServer.Type=fastcgi -vServer.Port=${hhvm_values['settings']['port']}"
+
+  supervisord::program { 'hhvm':
+    command     => $supervisord_hhvm_cmd,
+    priority    => '100',
+    user        => 'www-data',
+    autostart   => true,
+    autorestart => true,
+    environment => {
+      'PATH' => '/bin:/sbin:/usr/bin:/usr/sbin'
+    },
+    require => Package['hhvm']
+  }
 }
